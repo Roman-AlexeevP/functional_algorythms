@@ -6,14 +6,14 @@ let rec pow = function
 // 17.2
 let rec isIthChar (s:string, n:int, c: char) = s.[n] = c 
 
-let recAcc = function
-        | (s:string, n, c) when n >= s.Length || n < 0  -> 0
-        | (s, n, c) when isIthChar (s,n,c) -> 1
-        | _ -> 0
-  
 
 // 17.3
-let rec occFromIth  = function
-    | (s:string, n, c) when n >= s.Length || n < 0  -> 0
-    | (s, n, c)  -> recAcc(s,n,c) + occFromIth(s, n+1, c)
+let occFromIth (s:string, n:int, c:char) =
+    let rec inner = function
+        | (it, count) when (String.length s) = it -> count
+        | (it, count) when (it < 0) || (it > String.length s) -> count
+        | (it, count) when (isIthChar (s, it, c)) -> inner (it+1, count+1)
+        | (it, count) -> inner (it+1, count)
+    inner(n, 0)
+    
 
