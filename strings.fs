@@ -1,21 +1,29 @@
 // 17.1
 let rec pow = function
-    | (s: string, 1) -> s
-    | (s: string, n: int) -> s + (pow (s, n-1))
+    | (s, 0) -> ""
+    | (s, n) when n < 0  -> ""
+    | (s, n) -> s + pow (s, n - 1)
+
 
 // 17.2
 let rec isIthChar = function
-    | (s, n, c) when (n < 0) || (n >= String.length s) -> false
-    | (s, n, c) -> s.[n] = c 
+    | (s, n, c) when n < 0 -> false
+    | (s, n, c) when ((String.length s) <= n) -> false
+    | (s, n, c) when (string s).[n] = c  -> true
+    | (s, n, c) -> false
 
 
 // 17.3
-let occFromIth (s:string, n:int, c:char) =
-    let rec inner = function
-        | (it, count) when (String.length s) = it -> count
-        | (it, count) when (it < 0) || (it > String.length s) -> count
-        | (it, count) when (isIthChar (s, it, c)) -> inner (it+1, count+1)
-        | (it, count) -> inner (it+1, count)
-    inner(n, 0)
+let rec occFromIth (str,number,char)=
+    (let rec inner =
+        function
+        | (s, n, c, count) when ((String.length s) <= n) -> count
+        | (s, n, c, count) when n < 0 -> 0
+        | (s, n, c, count) when  ((string s).[n] = c) -> inner(s,n+1,c,count+1)
+        | (s, n, c, count) when  ((string s).[n] <> c) -> inner(s,n+1,c,count)
+        | _ -> 0
+
+     inner (str, number, char, 0))
     
+
 
