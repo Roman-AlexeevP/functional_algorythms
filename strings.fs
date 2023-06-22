@@ -5,7 +5,7 @@ let rec pow = function
 
 // 17.2
 let rec isIthChar = function
-    | (s, n, c) when (n < 0) || (n > String.length s) -> false
+    | (s, n, c) when (n < 0) || (n >= String.length s) -> false
     | (s, n, c) -> s.[n] = c 
 
 
