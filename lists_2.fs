@@ -26,11 +26,13 @@ let rec split =
     | [] -> []
     | [x] -> [x]
     | head :: (second :: tail) -> head :: first_half tail
+    | _ -> []
   
   let rec second_half = function
     | [] -> []
     | [x] -> []
     | head :: need_element :: tail-> [need_element] @ second_half tail   
+    | _ -> []
 
   fun xs -> (first_half xs, second_half xs)
 
